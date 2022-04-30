@@ -35,7 +35,6 @@ class problem{
         int euclidean();
         //function that prints the state in a row x column display
         void print();
-        void frontier(std::vector<problem*> &statequeue);
         //variables holding values for f(n) h(n) and g(n)
         double fn;           
         double hn;           
