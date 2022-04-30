@@ -24,7 +24,7 @@ class problem{
         problem* parent;           
         int getblank();
         bool checksolution();
-        //functions for creating child nodes based on movement
+        //functions for creating child nodes based on movement **of the blank node
         problem* moveUp();
         problem* moveDown();
         problem* moveLeft();
