@@ -9,7 +9,7 @@ problem::problem(){
     parent = NULL;
     rows = rows;
     columns = columns;
-    puzzlesize = tiles;
+    puzzlesize = puzzlesize;
     makegoalstate(currpuzzle);
     makegoalstate(goalpuzzle);
     fn = 0;
@@ -26,7 +26,7 @@ problem::problem(vector<int> initial, int rows, int columns){
     fn = 0;
     gn = 0;
     movement = " ";
-    currBoard = initial;
+    currpuzzle = initial;
     makegoalstate(goalpuzzle);
 
 }

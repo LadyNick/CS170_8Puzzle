@@ -1,6 +1,7 @@
 #ifndef __PROBLEM_H__
 #define __PROBLEM_H__
-
+#include <iostream>
+#include <vector>
 #include <string>
 using namespace std;
 
