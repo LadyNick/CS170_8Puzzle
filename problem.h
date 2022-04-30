@@ -2,7 +2,6 @@
 #define __PROBLEM_H__
 
 #include <string>
-#include "main.cpp"
 using namespace std;
 
 class problem{

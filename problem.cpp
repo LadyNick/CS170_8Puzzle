@@ -1,8 +1,8 @@
 #include "problem.h"
 #include <stdlib.h>
 #include <vector>
-using namespace std;
 #include <math.h>
+using namespace std;
 
 problem::problem(){
     parent = NULL;

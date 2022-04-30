@@ -4,7 +4,10 @@ using namespace std;
 //THIS FILE HOLDS THE DIFFERENT SEARCHING SOLVING METHODS
 //UCS
 void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded){
-
+    //According to the project guide, we put expanding state and print the root node, only for the root node's expansion
+    if(node->parent == NULL){cout << "\nExpanding state\n";
+    node-print();
+    cout << "\n\n";}
     //this will capture the max size the queue ever was, for the last 3 lines of the trace
     if(queue.size() > maxqueuesize){ maxqueuesize = queue.size();}
     //we do not want the queue to be empty, its illegal or invalid or something from lecture
@@ -48,10 +51,27 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
         queue.push_back(right);
     }
     arrangequeue(queue);
+    //After the queue is rearranged so the costs of the nodes are ascending, the problem state at index
+    //0 will be the next node to be expanded so we pass that in after printing out the expansion trace into
+    //the UCS function again for recursion
 
+    cout << "The best state to expand with g(n) = " << queue.at(0)->gn << " and h(n) = ";
+    cout << queue.at(0)->hn << " is...\n";
+    queue.at(0)->print();
+    cout << "\tExpanding this node...\n\n";
     UCS(queue.at(0), queue, solutionstates, maxqueuesize, nodesexpanded);
 }
 
+
+//The A* with Misplaced tile heuristic will go here
+void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded){
+
+}
+
+//THE A* with euclidean/manhattan heuristic will go here
+void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded){
+
+}
 
 //This function sorts the queue from lowest cost to highest cost and it is useful because we always 
 //want to be expanding the node with the lowest cost
