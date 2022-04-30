@@ -1,12 +1,14 @@
 #include "problem.h"
 using namespace std;
 
+void arrangequeue(vector<problem*> &queue);
+
 //THIS FILE HOLDS THE DIFFERENT SEARCHING SOLVING METHODS
 //UCS
 void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded){
     //According to the project guide, we put expanding state and print the root node, only for the root node's expansion
     if(node->parent == NULL){cout << "\nExpanding state\n";
-    node-print();
+    node->print();
     cout << "\n\n";}
     //this will capture the max size the queue ever was, for the last 3 lines of the trace
     if(queue.size() > maxqueuesize){ maxqueuesize = queue.size();}
@@ -15,7 +17,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
     //Every loop, we take the the frontier of the queue, and pop the node before expansion
     queue.erase(queue.begin());
     //after popping the frontier of the node, we ask the state, are you the solution?
-    if(node->checksolution){solutions.push_back(initial_state); return;}
+    if(node->checksolution()){solutionstates.push_back(node); return;}
 
     //This is where we create new child nodes moving the blank in every possible direction
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
@@ -91,7 +93,7 @@ void arrangequeue(vector<problem*> &queue){
         }
         //put the nth min into the ith index
         problem* curr = queue.at(i);
-        queue.at(i) = statequeue.at(mini);
-        statequeue.at(mini) = curr;
+        queue.at(i) = queue.at(mini);
+        queue.at(mini) = curr;
     }
 }

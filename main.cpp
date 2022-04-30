@@ -9,10 +9,10 @@
 using namespace std;
 
 //HERE WE WILL DECLARE THE SETUP FOR THE SIZE OF THE GAME
-const int rows, columns = 3;
-const int tiles = rows*columns;
+const int rows = 3 ; const int columns = 3;
+const int puzzlesize = rows*columns;
 //HERE ARE FUNCTIONS THAT WILL BE USED TO SETUP THE TILE PUZZLE, DEFINED AT THE BOTTOM
-int gamecreation(vector<int> &goalstate, vector<int> &startstate);
+int gamecreation(vector<int> &startstate);
 void makeinitialstate(int selection, vector<int> &startstate);
 void makegoalstate(vector<int> &goaltiles);
 bool validtiles(vector<int> tiles);
@@ -55,7 +55,7 @@ int main(){
     if(solvertype == 2){
         AMIS(firststate, queue, solutionstates, maxqueuesize, nodesexpanded);
     }
-    if(solverype == 3){
+    if(solvertype == 3){
         AEUC(firststate, queue, solutionstates, maxqueuesize, nodesexpanded);
     }
 
@@ -147,7 +147,7 @@ void makeinitialstate(int selection, vector<int> &startstate){
     int value;
 
     if(selection == 1){
-        problemBoard = {1, 0, 3, 4, 2, 6, 7, 5, 8};
+        startstate = {1, 0, 3, 4, 2, 6, 7, 5, 8};
     }
     else if(selection == 2){
         while(!validity){
@@ -158,7 +158,7 @@ void makeinitialstate(int selection, vector<int> &startstate){
                 fillrow(startstate);
                 cout << "Enter third row with spaces between #'s: ";
                 fillrow(startstate);
-                validity = checkBoardInput(startstate);
+                validity = validtiles(startstate);
             }
     }
 }
@@ -170,7 +170,7 @@ int gamecreation(vector<int> &startstate){
     
     cout << "Welcome to 862126786 8 puzzle solver." << endl;
     cout << "Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle." << endl;
-    cin >> puzzletype;
+    cin >> type;
     
     while(!choosetiles){
         if(type == 1){
@@ -187,9 +187,8 @@ int gamecreation(vector<int> &startstate){
         }
     }
  
-    cout << "Enter your choice of algorithm" << endl << "Uniform Cost Search" << endl;
-    cout << "A* with the Misplaced Tile heuristic" << endl "A* with the Euclidean distance heuristic" <<endl;
-    cout << "Please enter your selection (1/2/3): ";
+    cout << "Enter your choice of algorithm\nUniform Cost Search\n";
+    cout << "A* with the Misplaced Tile heuristic\nA* with the Euclidean distance heuristic\n\n";
     cin >> type;
 
     while(!choosealgo){
@@ -197,7 +196,7 @@ int gamecreation(vector<int> &startstate){
             choosealgo = true;
         }
         else{
-            cout << "Invalid Method, Enter method: "
+            cout << "Invalid Method, Enter method: ";
             cin >> type;
         }
     }
