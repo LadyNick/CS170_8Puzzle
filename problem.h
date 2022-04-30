@@ -1,6 +1,7 @@
 #ifndef __PROBLEM_H__
 #define __PROBLEM_H__
 
+#include <string>
 #include "main.cpp"
 using namespace std;
 
