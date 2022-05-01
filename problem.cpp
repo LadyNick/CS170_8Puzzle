@@ -5,13 +5,24 @@
 #include <math.h>
 using namespace std;
 
+
+//I needed to get this kind of function into each problem and main so I just put it in both and changed the name
+//normally the 9 would be board size or total tiles but for now im leaving it as 9 for the 8 puzzle
+void makegoal(vector<int> &goaltiles){
+    for(int i = 1; i < 9; i++){
+        goaltiles.push_back(i);
+    }
+    //we always want the blank tile to be in the bottom right of the puzzle, so that is the goal
+    goaltiles.push_back(0);
+}
+
 problem::problem(){
     parent = NULL;
     rows = rows;
     columns = columns;
     puzzlesize = puzzlesize;
-    makegoalstate(currpuzzle);
-    makegoalstate(goalpuzzle);
+    makegoal(currpuzzle);
+    makegoal(goalpuzzle);
     fn = 0;
     hn = 0;
     gn = 0;
@@ -27,7 +38,7 @@ problem::problem(vector<int> initial, int rows, int columns){
     gn = 0;
     movement = " ";
     currpuzzle = initial;
-    makegoalstate(goalpuzzle);
+    makegoal(goalpuzzle);
 
 }
 
