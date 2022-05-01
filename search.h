@@ -7,17 +7,23 @@ void arrangequeue(vector<problem*> &queue);
 //UCS
 void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded){
     //According to the project guide, we put expanding state and print the root node, only for the root node's expansion
-    if(node->parent == NULL){cout << "\nExpanding state\n";
-    node->print();
-    cout << "\n\n";}
+    if(node->parent == NULL){cout << "\nExpanding state";
+    node->print();}
+    //cout << "\n\n";
     //this will capture the max size the queue ever was, for the last 3 lines of the trace
     if(queue.size() > maxqueuesize){ maxqueuesize = queue.size();}
     //we do not want the queue to be empty, its illegal or invalid or something from lecture
+    //cout << "this3";
     if(queue.empty()){return;}
+    //cout << "this4";
     //Every loop, we take the the frontier of the queue, and pop the node before expansion
     queue.erase(queue.begin());
     //after popping the frontier of the node, we ask the state, are you the solution?
     if(node->checksolution()){solutionstates.push_back(node); return;}
+    //cout<<"gets to here 1";
+    if(node->parent !=NULL){
+    cout << "\tExpanding this node...\n\n";}
+    else{ cout << endl << endl;}
 
     //This is where we create new child nodes moving the blank in every possible direction
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
@@ -52,15 +58,15 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
         right->fn = right->gn;
         queue.push_back(right);
     }
+    //cout << "gets to here2";
     arrangequeue(queue);
     //After the queue is rearranged so the costs of the nodes are ascending, the problem state at index
     //0 will be the next node to be expanded so we pass that in after printing out the expansion trace into
     //the UCS function again for recursion
 
     cout << "The best state to expand with g(n) = " << queue.at(0)->gn << " and h(n) = ";
-    cout << queue.at(0)->hn << " is...\n";
+    cout << queue.at(0)->hn << " is...";
     queue.at(0)->print();
-    cout << "\tExpanding this node...\n\n";
     UCS(queue.at(0), queue, solutionstates, maxqueuesize, nodesexpanded);
 }
 

@@ -6,7 +6,8 @@
 using namespace std;
 
 class problem{
-    private:
+    //private:
+    public:
         //vector holding current state values in order
         vector<int> currpuzzle;
         //vector holding the values in goal order, same for every problem object
@@ -14,8 +15,8 @@ class problem{
         //size elements that determine if its a 8 puzzle, 15 puzzle, etc..
         int rows;
         int columns;
-        int puzzlesize;
-    public:
+        int puzzlecnt;
+    //public:
         //constructors
         problem();
         problem(std::vector<int> initial, int rows, int columns);
