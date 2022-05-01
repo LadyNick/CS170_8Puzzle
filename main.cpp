@@ -32,6 +32,7 @@ int main(){
     //FOR THE EXPANSION, THE PROJECT GUIDE WANTS TO KNOW THE NODES EXPANDED, DEPTH, AND MAXQUEUE SIZE
     vector<problem*> queue;
     vector<problem*> solutionstates;
+    vector<problem*> repeatedstates;
     queue.push_back(firststate);
     int nodesexpanded = 0;
     int solutiondepth = 0;   //solution depth is going to be the same as the gn of the leaf/solution node
@@ -42,22 +43,22 @@ int main(){
     //RUNMETHOD2( .... );
     //RUNMETHOD3( .... );
     if(solvertype == 1){
-        UCS(firststate, queue, solutionstates, maxqueuesize, nodesexpanded);
+        UCS(firststate, queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
         //cout << "\nUCS\n";
     }
     if(solvertype == 2){
-        AMIS(firststate, queue, solutionstates, maxqueuesize, nodesexpanded);
+        AMIS(firststate, queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
         //cout << "\nAMIS\n";
     }
     if(solvertype == 3){
-        AEUC(firststate, queue, solutionstates, maxqueuesize, nodesexpanded);
+        AEUC(firststate, queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
         //cout << "\nAEUC\n";
     }
 
     if(!solutionstates.size()){ 
         cout<< "\n\nTHIS PUZZLE IS IMPOSSIBLE TO SOLVE" <<endl;
     }
-    else{}
+    else{
 
     //WE NEED TO DO THE EXPANSION BETWEEN HERE^^^ AND HEREVVV SO IT WILL GO INSIDE OF THE METHODS BECAUSE 
     //EXPANSION IS DEPENDENT ON THE EXACT METHOD
@@ -97,6 +98,8 @@ int main(){
         cout << endl << endl;;
     }
     cout<< "GOAL REACHED";
+
+    //cout<< "Total unique states: " << repeatedstates.size();
 }
 
 
