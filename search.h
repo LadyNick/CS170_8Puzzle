@@ -102,17 +102,24 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
 //The A* with Misplaced tile heuristic will go here
 void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded, vector<problem*> &repeatedstates){
     //According to the project guide, we put expanding state and print the root node, only for the root node's expansion
-    if(node->parent == NULL){cout << "\nExpanding state\n";
-    node->print();
-    cout << "\n\n";}
+    if(node->parent == NULL){cout << "\nExpanding state";
+    node->print();}
+    //cout << "\n\n";
     //this will capture the max size the queue ever was, for the last 3 lines of the trace
     if(queue.size() > maxqueuesize){ maxqueuesize = queue.size();}
     //we do not want the queue to be empty, its illegal or invalid or something from lecture
+    //cout << "this3";
     if(queue.empty()){return;}
+    //cout << "this4";
     //Every loop, we take the the frontier of the queue, and pop the node before expansion
     queue.erase(queue.begin());
     //after popping the frontier of the node, we ask the state, are you the solution?
     if(node->checksolution()){solutionstates.push_back(node); return;}
+    //cout<<"gets to here 1";
+    if(node->parent !=NULL){
+    cout << "\tExpanding this node...\n\n";}
+    else{ cout << endl << endl;}
+    repeatedstates.push_back(node);
 
     //This is where we create new child nodes moving the blank in every possible direction
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
@@ -122,34 +129,60 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     problem* down = node->moveDown();
     problem* left = node->moveLeft();
     problem* right = node->moveRight();
+    bool upb; bool downb; bool leftb; bool rightb;
+    upb = downb = leftb = rightb = false;
 
     if(up != NULL){
         up->movement = "Move Up";
         up->parent = node;
         up->hn = up->misplaced();
         up->fn = up->gn + up->hn;
-        queue.push_back(up);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(up->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                upb = true;
+            }
+        }
+        if(!upb){
+        queue.push_back(up);}
     }
     if(down != NULL){ 
         down->movement = "Move Down";
         down->parent = node;
         down->hn = down->misplaced();
         down->fn = down->gn + down->hn;
-        queue.push_back(down);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(down->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                downb = true;
+            }
+        }
+        if(!downb){
+        queue.push_back(down);}
     }
     if(left != NULL){
         left->movement = "Move Left";
         left->parent = node;
         left->hn = left->misplaced();
         left->fn = left->gn + left->hn;
-        queue.push_back(left);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(left->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                leftb = true;
+            }
+        }
+        if(!leftb){
+        queue.push_back(left);}
     }
     if(right != NULL){
         right->movement = "Move Right";
         right->parent = node;
         right->hn = right->misplaced();
         right->fn = right->gn + right->hn;
-        queue.push_back(right);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(right->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                rightb = true;
+            }
+        }
+        if(!rightb){
+        queue.push_back(right);}
     }
     arrangequeue(queue);
     //After the queue is rearranged so the costs of the nodes are ascending, the problem state at index
@@ -157,26 +190,32 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     //the UCS function again for recursion
 
     cout << "The best state to expand with g(n) = " << queue.at(0)->gn << " and h(n) = ";
-    cout << queue.at(0)->hn << " is...\n";
+    cout << queue.at(0)->hn << " is...";
     queue.at(0)->print();
-    cout << "\tExpanding this node...\n\n";
     AMIS(queue.at(0), queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
 }
 
 //THE A* with euclidean/manhattan heuristic will go here
 void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded, vector<problem*> &repeatedstates){
     //According to the project guide, we put expanding state and print the root node, only for the root node's expansion
-    if(node->parent == NULL){cout << "\nExpanding state\n";
-    node->print();
-    cout << "\n\n";}
+    if(node->parent == NULL){cout << "\nExpanding state";
+    node->print();}
+    //cout << "\n\n";
     //this will capture the max size the queue ever was, for the last 3 lines of the trace
     if(queue.size() > maxqueuesize){ maxqueuesize = queue.size();}
     //we do not want the queue to be empty, its illegal or invalid or something from lecture
+    //cout << "this3";
     if(queue.empty()){return;}
+    //cout << "this4";
     //Every loop, we take the the frontier of the queue, and pop the node before expansion
     queue.erase(queue.begin());
     //after popping the frontier of the node, we ask the state, are you the solution?
     if(node->checksolution()){solutionstates.push_back(node); return;}
+    //cout<<"gets to here 1";
+    if(node->parent !=NULL){
+    cout << "\tExpanding this node...\n\n";}
+    else{ cout << endl << endl;}
+    repeatedstates.push_back(node);
 
     //This is where we create new child nodes moving the blank in every possible direction
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
@@ -186,34 +225,60 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     problem* down = node->moveDown();
     problem* left = node->moveLeft();
     problem* right = node->moveRight();
+    bool upb; bool downb; bool leftb; bool rightb;
+    upb = downb = leftb = rightb = false;
 
     if(up != NULL){
         up->movement = "Move Up";
         up->parent = node;
         up->hn = up->euclidean();
         up->fn = up->gn + up->hn;
-        queue.push_back(up);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(up->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                upb = true;
+            }
+        }
+        if(!upb){
+        queue.push_back(up);}
     }
     if(down != NULL){
         down->movement = "Move Down";
         down->hn = down->euclidean();
         down->parent = node;
         down->fn = down->gn + down->hn;
-        queue.push_back(down);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(down->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                downb = true;
+            }
+        }
+        if(!downb){
+        queue.push_back(down);}
     }
     if(left != NULL){
         left->movement = "Move Left";
         left->parent = node;
         left->hn = left->euclidean();
         left->fn = left->gn + left->hn;
-        queue.push_back(left);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(left->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                leftb = true;
+            }
+        }
+        if(!leftb){
+        queue.push_back(left);}
     }
     if(right != NULL){
         right->movement = "Move Right";
         right->parent = node;
         right->hn = right->euclidean();
         right->fn = right->gn + right->hn;
-        queue.push_back(right);
+        for(int i=0; i<repeatedstates.size(); ++i){
+            if(right->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                rightb = true;
+            }
+        }
+        if(!rightb){
+        queue.push_back(right);}
     }
     arrangequeue(queue);
     //After the queue is rearranged so the costs of the nodes are ascending, the problem state at index
@@ -221,9 +286,8 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     //the UCS function again for recursion
 
     cout << "The best state to expand with g(n) = " << queue.at(0)->gn << " and h(n) = ";
-    cout << queue.at(0)->hn << " is...\n";
+    cout << queue.at(0)->hn << " is...";
     queue.at(0)->print();
-    cout << "\tExpanding this node...\n\n";
     AEUC(queue.at(0), queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
 }
 
