@@ -24,7 +24,6 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
     if(node->parent !=NULL){
     cout << "\tExpanding this node...\n\n";}
     else{ cout << endl << endl;}
-    repeatedstates.push_back(node);
 
 
     //This is where we create new child nodes moving the blank in every possible direction
@@ -48,6 +47,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
             }
         }
         if(!upb){
+        repeatedstates.push_back(up);
         queue.push_back(up);}
     }
     if(down != NULL){
@@ -60,6 +60,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
             }
         }
         if(!downb){
+        repeatedstates.push_back(down);
         queue.push_back(down);}
     }
     if(left != NULL){
@@ -72,6 +73,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
             }
         }
         if(!leftb){
+        repeatedstates.push_back(left);
         queue.push_back(left);}
     }
     if(right != NULL){
@@ -84,6 +86,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
             }
         }
         if(!rightb){
+        repeatedstates.push_back(right);
         queue.push_back(right);}
     }
     //cout << "gets to here2";
@@ -119,7 +122,6 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     if(node->parent !=NULL){
     cout << "\tExpanding this node...\n\n";}
     else{ cout << endl << endl;}
-    repeatedstates.push_back(node);
 
     //This is where we create new child nodes moving the blank in every possible direction
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
@@ -143,6 +145,7 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!upb){
+        repeatedstates.push_back(up);
         queue.push_back(up);}
     }
     if(down != NULL){ 
@@ -156,6 +159,7 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!downb){
+        repeatedstates.push_back(down);
         queue.push_back(down);}
     }
     if(left != NULL){
@@ -169,6 +173,7 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!leftb){
+        repeatedstates.push_back(left);
         queue.push_back(left);}
     }
     if(right != NULL){
@@ -182,6 +187,7 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!rightb){
+        repeatedstates.push_back(right);
         queue.push_back(right);}
     }
     arrangequeue(queue);
@@ -215,7 +221,6 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     if(node->parent !=NULL){
     cout << "\tExpanding this node...\n\n";}
     else{ cout << endl << endl;}
-    repeatedstates.push_back(node);
 
     //This is where we create new child nodes moving the blank in every possible direction
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
@@ -239,6 +244,7 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!upb){
+        repeatedstates.push_back(up);
         queue.push_back(up);}
     }
     if(down != NULL){
@@ -252,6 +258,7 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!downb){
+        repeatedstates.push_back(down);
         queue.push_back(down);}
     }
     if(left != NULL){
@@ -265,6 +272,7 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!leftb){
+        repeatedstates.push_back(left);
         queue.push_back(left);}
     }
     if(right != NULL){
@@ -278,6 +286,7 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
             }
         }
         if(!rightb){
+        repeatedstates.push_back(right);
         queue.push_back(right);}
     }
     arrangequeue(queue);

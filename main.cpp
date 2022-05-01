@@ -34,6 +34,7 @@ int main(){
     vector<problem*> solutionstates;
     vector<problem*> repeatedstates;
     queue.push_back(firststate);
+    repeatedstates.push_back(firststate);
     int nodesexpanded = 0;
     int solutiondepth = 0;   //solution depth is going to be the same as the gn of the leaf/solution node
     int maxqueuesize = 0;

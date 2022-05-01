@@ -83,46 +83,75 @@ int problem::misplaced(){
 //OF EACH TILE FROM ITS CORRECT LOCATION, IF NOT IN THE RIGHT PLACE
 //FORMULA FOR CALCULATIING THIS COST IS SQRT((X1-Y1)^2 + (X2-Y2)^2)
 int problem::euclidean(){
-    int total;
-    int count = 0;
-    int X1, Y1;
-    int X2, Y2;
-    int X3, Y3;
-    bool cY, tY = false;
 
-    for(int i = 0; i < puzzlesize; i++){
-        if(currpuzzle.at(i) == 0){
-            continue;
-        }
-        else if(currpuzzle.at(i) != goalpuzzle.at(i)){
-            X1 = ((i+1) % columns == 0) ? columns : (i + 1) % columns;
-            X2 = (currpuzzle.at(i) % columns == 0) ? columns : currpuzzle.at(i) % columns;
+    int curval = 0;
+    int correct = 0;
+    int rowdiff = 0;;
+    int coldiff = 0;
+    int curro = 0;
+    int curcol=0;
 
-            cY = tY = false;
+    int trow = 0;
+    int tcol=0;
 
-            for(int j = 1; j < rows + 1; j++){
-                if((i < j * columns) && !cY){
-                    Y1 = j;
-                    cY = true;
-                }
-                if((currpuzzle.at(i) < j * columns) && !tY){
-                    Y2 = j;
-                    tY = true;
-                }
+    int manhattan=0;
+    
+
+    //correct placements for for number 0, 1, 2, 3, 4, 5, 6, 7, 8, 
+    //the row for #0 is 3, col for #0 is 3,
+    vector<int> royes = {3, 1, 1, 1, 2, 2, 2, 3, 3};
+    vector<int> colyes = {3, 1, 2, 3, 1, 2, 3, 1, 2};
+
+    for(int i = 0; i<puzzlesize; ++i){
+        if((currpuzzle.at(i) != goalpuzzle.at(i)) && (currpuzzle.at(i) != 0) ){
+            //this means that index i is not holding the right number
+            curval = currpuzzle.at(i); //pretend #3 is in index 0
+            if(i == 0){
+                curro = 1; curcol = 1;
             }
+            if(i == 1){
+                curro = 1; curcol = 2;
+            }
+            if(i == 2){
+                curro = 1; curcol = 3;
+            }
+            if(i == 3){
+                curro = 2; curcol = 1;
+            }
+            if(i == 4){
+                curro = 2; curcol = 2;
+            }
+            if(i == 5){
+               curro = 2; curcol = 3;
+            }
+            if(i == 6){
+               curro = 3; curcol = 1;
+            }
+            if(i == 7){
+                curro = 3; curcol = 2;
+            }
+            if(i == 8){
+                curro = 3; curcol = 3;
+            }   
 
-            X3 = X1 - X2;
-            Y3 = Y1 - Y2;
+            trow = royes.at(curval); 
+            tcol = colyes.at(curval);
 
-            X3 = abs(X3);
-            Y3 = abs(Y3);
+            rowdiff = abs(trow - curro);
+            coldiff = abs(tcol - curcol);
+            //cout << "index: " << i <<"  hn " << rowdiff + coldiff << endl;
 
-            total = sqrt(pow(X3, 2) + pow(Y3, 2));
-
-            count += total;
+            manhattan += rowdiff;
+            manhattan += coldiff;
+            //cout << "manhattan: " << manhattan <<endl;
+    
+        }
+        else{
+            //cout << currpuzzle.at(i) << "is in the right place\n";
         }
     }
-    return count;
+    return manhattan;
+   
 }
 
 
