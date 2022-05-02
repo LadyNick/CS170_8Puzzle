@@ -79,12 +79,54 @@ int problem::misplaced(){
     return count;
 }
 
-//CALCULATE THE EUCLIDEAN/MANHATTAN COST FOR A STATE, WHERE YOU COMBINE THE TOTAL DISTANCE
+//CALCULATE THE EUCLIDEAN*** COST FOR A STATE, WHERE YOU COMBINE THE TOTAL DISTANCE
 //OF EACH TILE FROM ITS CORRECT LOCATION, IF NOT IN THE RIGHT PLACE
 //FORMULA FOR CALCULATIING THIS COST IS SQRT((X1-Y1)^2 + (X2-Y2)^2)
 int problem::euclidean(){
 
-    int curval = 0;
+    int total;
+    int count = 0;
+    int X1, Y1;
+    int X2, Y2;
+    int X3, Y3;
+    bool cY, tY = false;
+
+    for(int i = 0; i < puzzlesize; i++){
+        if(currpuzzle.at(i) == 0){
+            continue;
+        }
+        else if(currpuzzle.at(i) != goalpuzzle.at(i)){
+            X1 = ((i+1) % columns == 0) ? columns : (i + 1) % columns;
+            X2 = (currpuzzle.at(i) % columns == 0) ? columns : currpuzzle.at(i) % columns;
+
+            cY = tY = false;
+
+            for(int j = 1; j < rows + 1; j++){
+                if((i < j * columns) && !cY){
+                    Y1 = j;
+                    cY = true;
+                }
+                if((currpuzzle.at(i) < j * columns) && !tY){
+                    Y2 = j;
+                    tY = true;
+                }
+            }
+
+            X3 = X1 - X2;
+            Y3 = Y1 - Y2;
+
+            X3 = abs(X3);
+            Y3 = abs(Y3);
+
+            total = sqrt(pow(X3, 2) + pow(Y3, 2));
+
+            count += total;
+        }
+    }
+    return count;
+
+
+    /*int curval = 0;
     int correct = 0;
     int rowdiff = 0;;
     int coldiff = 0;
@@ -150,7 +192,7 @@ int problem::euclidean(){
             //cout << currpuzzle.at(i) << "is in the right place\n";
         }
     }
-    return manhattan;
+    return manhattan;*/
    
 }
 
