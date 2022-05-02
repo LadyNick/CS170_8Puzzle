@@ -38,6 +38,7 @@ int main(){
     int nodesexpanded = 0;
     int solutiondepth = 0;   //solution depth is going to be the same as the gn of the leaf/solution node
     int maxqueuesize = 0;
+    //int poss = 0;
 
     //HERE WE WILL RUN THE METHOD CHOSEN AND AS THE METHOD IS BEING RAN WE NEED TO BE PRINTING THE EXPANSION
     //RUNMETHOD1( .... );
@@ -52,7 +53,7 @@ int main(){
         //cout << "\nAMIS\n";
     }
     if(solvertype == 3){
-        AEUC(firststate, queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
+        AEUC(firststate, queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates /*poss*/);
         //cout << "\nAEUC\n";
     }
 
@@ -99,6 +100,8 @@ int main(){
         cout << endl << endl;;
     }
     cout<< "GOAL REACHED";
+
+    //cout<< endl << poss << endl;
 
     //cout<< "Total unique states: " << repeatedstates.size();
 }

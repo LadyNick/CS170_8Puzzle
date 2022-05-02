@@ -30,6 +30,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
     //Here is where we increment the # of nodes expanded, after we know that the solution(s) haven't been found yet
     ++nodesexpanded;
+    //cout << "expanded nodes" << nodesexpanded << endl;
     problem* up = node->moveUp();
     problem* down = node->moveDown();
     problem* left = node->moveLeft();
@@ -44,6 +45,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
         for(int i=0; i<repeatedstates.size(); ++i){
             if(up->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 upb = true;
+                //./acout << "already exists\n";
             }
         }
         if(!upb){
@@ -57,6 +59,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
         for(int i=0; i<repeatedstates.size(); ++i){
             if(down->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 downb = true;
+                //cout << "already exists\n";
             }
         }
         if(!downb){
@@ -70,6 +73,7 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
         for(int i=0; i<repeatedstates.size(); ++i){
             if(left->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 leftb = true;
+                //cout << "already exists\n";
             }
         }
         if(!leftb){
@@ -83,6 +87,8 @@ void UCS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstate
         for(int i=0; i<repeatedstates.size(); ++i){
             if(right->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 rightb = true;
+                //cout << "already exists\n";
+
             }
         }
         if(!rightb){
@@ -127,6 +133,7 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
     //Here is where we increment the # of nodes expanded, after we know that the solution(s) haven't been found yet
     ++nodesexpanded;
+    //cout << "expanded nodes" << nodesexpanded << endl;
     problem* up = node->moveUp();
     problem* down = node->moveDown();
     problem* left = node->moveLeft();
@@ -142,6 +149,9 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         for(int i=0; i<repeatedstates.size(); ++i){
             if(up->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 upb = true;
+                //cout << "already exists\n";
+                //repeatedstates.at(i)->print();
+                cout<< endl;
             }
         }
         if(!upb){
@@ -156,6 +166,9 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         for(int i=0; i<repeatedstates.size(); ++i){
             if(down->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 downb = true;
+                //cout << "already exists\n";
+                //repeatedstates.at(i)->print();
+                cout<< endl;
             }
         }
         if(!downb){
@@ -170,6 +183,9 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         for(int i=0; i<repeatedstates.size(); ++i){
             if(left->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 leftb = true;
+                //cout << "already exists\n";
+                //repeatedstates.at(i)->print();
+                cout<< endl;
             }
         }
         if(!leftb){
@@ -184,6 +200,9 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         for(int i=0; i<repeatedstates.size(); ++i){
             if(right->currpuzzle == repeatedstates.at(i)->currpuzzle){
                 rightb = true;
+                //cout << "already exists\n";
+                //repeatedstates.at(i)->print();
+                cout<< endl;
             }
         }
         if(!rightb){
@@ -202,7 +221,7 @@ void AMIS(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
 }
 
 //THE A* with euclidean/manhattan heuristic will go here
-void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded, vector<problem*> &repeatedstates){
+void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstates, int &maxqueuesize, int &nodesexpanded, vector<problem*> &repeatedstates/*, int &poss*/){
     //According to the project guide, we put expanding state and print the root node, only for the root node's expansion
     if(node->parent == NULL){cout << "\nExpanding state";
     node->print();}
@@ -226,6 +245,7 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     //The movemenet functions handle cases where the blank is unable to move in illegal directions
     //Here is where we increment the # of nodes expanded, after we know that the solution(s) haven't been found yet
     ++nodesexpanded;
+    //cout << "expanded nodes" << nodesexpanded << endl;
     problem* up = node->moveUp();
     problem* down = node->moveDown();
     problem* left = node->moveLeft();
@@ -234,12 +254,14 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     upb = downb = leftb = rightb = false;
 
     if(up != NULL){
+        //++poss;
         up->movement = "Move Up";
         up->parent = node;
         up->hn = up->euclidean();
         up->fn = up->gn + up->hn;
         for(int i=0; i<repeatedstates.size(); ++i){
             if(up->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                //cout << "already exists\n";
                 upb = true;
             }
         }
@@ -248,12 +270,14 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         queue.push_back(up);}
     }
     if(down != NULL){
+        //++poss;
         down->movement = "Move Down";
         down->hn = down->euclidean();
         down->parent = node;
         down->fn = down->gn + down->hn;
         for(int i=0; i<repeatedstates.size(); ++i){
             if(down->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                //cout << "already exists\n";
                 downb = true;
             }
         }
@@ -262,12 +286,14 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         queue.push_back(down);}
     }
     if(left != NULL){
+        //++poss;
         left->movement = "Move Left";
         left->parent = node;
         left->hn = left->euclidean();
         left->fn = left->gn + left->hn;
         for(int i=0; i<repeatedstates.size(); ++i){
             if(left->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                //cout << "already exists\n";
                 leftb = true;
             }
         }
@@ -276,12 +302,14 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
         queue.push_back(left);}
     }
     if(right != NULL){
+        //++poss;
         right->movement = "Move Right";
         right->parent = node;
         right->hn = right->euclidean();
         right->fn = right->gn + right->hn;
         for(int i=0; i<repeatedstates.size(); ++i){
             if(right->currpuzzle == repeatedstates.at(i)->currpuzzle){
+                //cout << "already exists\n";
                 rightb = true;
             }
         }
@@ -297,7 +325,7 @@ void AEUC(problem* node, vector<problem*> &queue, vector<problem*> &solutionstat
     cout << "The best state to expand with g(n) = " << queue.at(0)->gn << " and h(n) = ";
     cout << queue.at(0)->hn << " is...";
     queue.at(0)->print();
-    AEUC(queue.at(0), queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates);
+    AEUC(queue.at(0), queue, solutionstates, maxqueuesize, nodesexpanded, repeatedstates/*, poss*/);
 }
 
 //This function sorts the queue from lowest cost to highest cost and it is useful because we always 
